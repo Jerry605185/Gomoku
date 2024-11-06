@@ -1,44 +1,52 @@
+import random
+def move(n,board):
+    while True:
+        userinputrow = input("Please enter a row index between 0 and " + str(n-1) + ":")
+        userinputcol = input("Please enter a column index between 0 and " + str(n-1) + ":")
+        if(not userinputrow.isdigit() or not userinputcol.isdigit()):
+            print("(" + userinputrow + ", " + userinputcol + ")" + " is not a legal input!")
+            continue
+        row, col = int(userinputrow), int(userinputcol)
+        if(row not in range(n) or col not in range(n)):
+            print("(" + userinputrow + ", " + userinputcol + ")" + " is not a legal space!")
+            continue
+        if(board[row][col] != " "):
+            print("(" + userinputrow + ", " + userinputcol + ")" + " is not an available space!")
+            continue
+        else:
+            return row , col
+        
+def make_empty_board(n):
+    board = [[" " for _ in range(n)]for _ in range(n)]
+    return board
 
-def move():
-    row_for_move = input("Please enter the row number you want to put the piece on:")
-    col_for_move = input("Please enter the column number you want to put the piece on:")
-    board[row_for_move+1][col_for_move] = 1
-def print_board(board):
-    counter = 15
+    
+
+def print_board(n, board):
+  boundary_line = ("+---" * n) + "+"
+  for i in range(n):
+    print(boundary_line)
+    row_i = "|"
+    for j in range(n):
+      row_i += " " + board[i][j] + " " + "|"
+    print(row_i)
+  print(boundary_line)
+
+def row_win(n,board,player):
+    counter = 0
     for row in board:
-        my_str = ""
-        for elem in row:
-            if elem == 0:
-                my_str += " ☐ "
-            elif elem == 9:
-                my_str = str(counter) + my_str
-                counter -= 1
-        print(my_str)
+        if (spaces == player for spaces in row):
+            counter += 1
+        if(counter >= 5):
+            return True
+    return False
 
-    print("0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15")
-def play_gomuku():
+def play_gomuku(n):
     print("20th century")
     print("War aint the answer in modern world. So to solve the yellow river dispute the shang royal family and King Wu")
     print(" decide to play a game of gomoku, whoever wins the game wins the yellow river base")
     print("Help King Wu to win the yellow river base, In exchange he is ready to give you 10% of the land.")
-    print_board(board)
+    make_empty_board(n)
 
-board = [
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-]
-
-print_board(board)
+#player's stone will get destroyed occasionally
+#player's stone can be traitor?
