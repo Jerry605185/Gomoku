@@ -33,12 +33,14 @@ def print_board(n, board):
   print(boundary_line)
 
 def row_win(n,board,player):
-    counter = 0
     for row in board:
+        counter = 0
         if (spaces == player for spaces in row):
             counter += 1
-        if(counter >= 5):
-            return True
+            if(counter >= 5):
+                return True
+        else:
+            counter = 0
     return False
 
 def play_gomuku(n):
