@@ -94,8 +94,30 @@ def if_win(n,board,player):
 
 
 def play_gomuku(n):
+    if(n < 5):
+        print("Board is too small! Setting to default value 5")
+        n = 5
+        
     print("20th century")
     print("War aint the answer in modern world. So to solve the yellow river dispute the shang royal family and King Wu")
     print("decide to play a game of gomoku, whoever wins the game wins the yellow river base")
     print("Help King Wu to win the yellow river base, In exchange he is ready to give you 10% of the land.")
-    make_empty_board(n)
+    board = make_empty_board(n)
+    print_board(n,board)
+    players = ["⚫","⚪"]
+    turn_counter = 0
+    max_turn = n*n
+  
+
+    while True:
+        active_player = players[turn_counter%2]
+        print("* " + active_player + "'s turn *")
+        row,col = move(n,board)
+        board[row][col] = active_player
+        print_board(n,board)
+        turn_counter += 1
+        if(if_win(n,board,active_player)):
+            print(active_player + " wins!")
+        if(turn_counter == max_turn):
+            print("No more spaces!")
+            
