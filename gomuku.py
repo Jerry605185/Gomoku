@@ -43,8 +43,8 @@ def row_win(n,board,player):
 
 def col_win(n,board,player):
     counter = 0
-    for col in board[0]:
-        for row in board:
+    for col in range(n):
+        for row in range(n):
             if(board[row][col]==player):
                 counter += 1
                 if(counter >= 5):
@@ -55,8 +55,8 @@ def col_win(n,board,player):
 def diag_win(n,board,player):
     rows = len(board)
     cols = len(board[0])
-    for row in board:
-        for col in board[0]:
+    for row in range(n):
+        for col in range(n):
             counter = 0
             current_row = row
             current_col = col
@@ -72,8 +72,8 @@ def diag_win(n,board,player):
 def anti_diag_win(n,board,player):
     rows = len(board)
     cols = len(board[0])
-    for row in board:
-        for col in board[0]:
+    for row in range(n):
+        for col in range(n):
             counter = 0
             current_row = row
             current_col = col
@@ -110,14 +110,19 @@ def play_gomuku(n):
   
 
     while True:
+        pos = random.random()
         active_player = players[turn_counter%2]
         print("* " + active_player + "'s turn *")
         row,col = move(n,board)
-        board[row][col] = active_player
+        if(0.2 < pos < 1.0):
+            board[row][col] = active_player
+        else:
+            print("Your piece just got destroyed!")
         print_board(n,board)
         turn_counter += 1
         if(if_win(n,board,active_player)):
             print(active_player + " wins!")
         if(turn_counter == max_turn):
-            print("No more spaces!")
-            
+            print("No more spaces! Game over!")
+
+play_gomuku()
