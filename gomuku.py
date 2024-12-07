@@ -100,7 +100,7 @@ def play_gomuku(n):
         
     print("20th century")
     print("War aint the answer anymore. Choose a side to showcase your gomoku skills and win the 10% land")
-    print("But be aware , your move is not your final move")
+    print("But be aware , your move can be invalid")
     board = make_empty_board(n)
     print_board(n,board)
     players = ["⚫","⚪"]
