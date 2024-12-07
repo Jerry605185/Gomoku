@@ -99,9 +99,8 @@ def play_gomuku(n):
         n = 5
         
     print("20th century")
-    print("War aint the answer in modern world. So to solve the yellow river dispute the shang royal family and King Wu")
-    print("decide to play a game of gomoku, whoever wins the game wins the yellow river base")
-    print("Help King Wu to win the yellow river base, In exchange he is ready to give you 10% of the land.")
+    print("War aint the answer anymore. Choose a side to showcase your gomoku skills and win the 10% land")
+    print("But be aware , your move is not your final move")
     board = make_empty_board(n)
     print_board(n,board)
     players = ["⚫","⚪"]
