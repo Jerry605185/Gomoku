@@ -21,33 +21,35 @@ def make_empty_board(n):
     return board
 
 def print_board(n, board):
-  boundary_line = ("+---" * n) + "+"
+  boundary_line = ("+----" * n) + "+"
   for i in range(n):
     print(boundary_line)
     row_i = "|"
     for j in range(n):
-      row_i += " " + board[i][j] + " " + "|"
+      row_i +=  f" {board[i][j]:^2} |"
     print(row_i)
   print(boundary_line)
 
 def row_win(n,board,player):
     for row in board:
         counter = 0
-        if (spaces == player for spaces in row):
-            counter += 1
-            if(counter >= 5):
-                return True
-        else:
-            counter = 0
+        for spaces in row:
+            if (spaces == player ):
+                counter += 1
+                if(counter == 5):
+                    return True
+            else:
+                counter = 0
     return False
 
 def col_win(n,board,player):
     counter = 0
     for col in range(n):
         for row in range(n):
+            counter = 0
             if(board[row][col]==player):
                 counter += 1
-                if(counter >= 5):
+                if(counter == 5):
                     return True
                 else:
                     counter = 0
@@ -63,8 +65,10 @@ def diag_win(n,board,player):
             while(current_row < rows and current_col < cols):
                 if(board[current_row][current_col] == player):
                     counter += 1
-                    if(counter >= 5):
+                    if(counter == 5):
                         return True
+                    else:
+                        break
                 current_row+=1
                 current_col+=1
     return False
@@ -80,8 +84,10 @@ def anti_diag_win(n,board,player):
             while(current_row < rows and current_col < cols):
                 if(board[current_row][current_col] == player):
                     counter += 1
-                    if(counter >= 5):
+                    if(counter == 5):
                         return True
+                    else:
+                        break
                 current_row+=1
                 current_col-=1
     return False
@@ -92,6 +98,11 @@ def if_win(n,board,player):
     else:
         return False
 
+def is_board_full(board):
+    for row in board:
+        if " " in row:
+            return False
+    return True
 
 def play_gomuku(n):
     if(n < 5):
@@ -103,7 +114,7 @@ def play_gomuku(n):
     print("But be aware , your move can be invalid")
     board = make_empty_board(n)
     print_board(n,board)
-    players = ["⚫","⚪"]
+    players = ["B","W"]
     turn_counter = 0
     max_turn = n*n
   
@@ -121,7 +132,9 @@ def play_gomuku(n):
         turn_counter += 1
         if(if_win(n,board,active_player)):
             print(active_player + " wins!")
-        if(turn_counter == max_turn):
+            break
+        if(is_board_full(board)):
             print("No more spaces! Game over!")
+            break
 
-play_gomuku()
+play_gomuku(5)
