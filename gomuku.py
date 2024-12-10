@@ -54,43 +54,61 @@ def col_win(n,board,player):
                 else:
                     counter = 0
     return False
-def diag_win(n,board,player):
+def diag_win(n, board, player=None):
     rows = len(board)
     cols = len(board[0])
     for row in range(n):
         for col in range(n):
-            counter = 0
+            counter_player1 = 0
+            counter_player2 = 0
             current_row = row
             current_col = col
-            while(current_row < rows and current_col < cols):
-                if(board[current_row][current_col] == player):
-                    counter += 1
-                    if(counter == 5):
-                        return True
-                    else:
-                        break
-                current_row+=1
-                current_col+=1
-    return False
+            while current_row < rows and current_col < cols:
+                if board[current_row][current_col] == "B":
+                    counter_player1 += 1
+                    counter_player2 = 0
+                elif board[current_row][current_col] == "W":
+                    counter_player2 += 1
+                    counter_player1 = 0
+                else:
+                    counter_player1 = counter_player2 = 0
 
-def anti_diag_win(n,board,player):
+                if counter_player1 == 5:
+                    return "B"
+                if counter_player2 == 5:
+                    return "W"
+                current_row += 1
+                current_col += 1
+    return None
+
+
+def anti_diag_win(n, board, player=None):
     rows = len(board)
     cols = len(board[0])
     for row in range(n):
         for col in range(n):
-            counter = 0
+            counter_player1 = 0
+            counter_player2 = 0
             current_row = row
             current_col = col
-            while(current_row < rows and current_col < cols):
-                if(board[current_row][current_col] == player):
-                    counter += 1
-                    if(counter == 5):
-                        return True
-                    else:
-                        break
-                current_row+=1
-                current_col-=1
-    return False
+            while current_row < rows and current_col >= 0:
+                if board[current_row][current_col] == "B":
+                    counter_player1 += 1
+                    counter_player2 = 0
+                elif board[current_row][current_col] == "W":
+                    counter_player2 += 1
+                    counter_player1 = 0
+                else:
+                    counter_player1 = counter_player2 = 0
+
+                if counter_player1 == 5:
+                    return "B"
+                if counter_player2 == 5:
+                    return "W"
+                current_row += 1
+                current_col -= 1
+    return None
+
     
 def if_win(n,board,player):
     if(row_win(n,board,player) or col_win(n,board,player) or diag_win(n,board,player) or anti_diag_win(n,board,player)):
@@ -137,4 +155,4 @@ def play_gomuku(n):
             print("No more spaces! Game over!")
             break
 
-play_gomuku(5)
+play_gomuku(10)
